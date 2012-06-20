@@ -15,7 +15,8 @@ class User < ActiveRecord::Base
   # and add an authenticate method to compare an encrypted password to the password_digest to authenticate users.
   # requires password_digest column in the database
 
-  before_save { |user| user.email = email.downcase }  # not all DB's handle case uniqueness
+  #before_save { |user| user.email = email.downcase }  # not all DB's handle case uniqueness
+  before_save { self.email.downcase! }
 
   validates :name, presence: true, length: { maximum: 50 } 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
