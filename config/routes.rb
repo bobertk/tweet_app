@@ -1,5 +1,5 @@
 TweetApp::Application.routes.draw do
-  get "users/new"
+resources :users  # all the actions needed for a RESTful Users resource, along with a large number of named routes for generating user URIs
 
 root to: 'static_pages#home' # when routed with "root to:" just remember to delete public/index.html.
 
