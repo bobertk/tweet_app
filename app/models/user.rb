@@ -11,6 +11,7 @@
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name,  :password, :password_confirmation   # ONLY these attr accessible (to prevent mass assignment)
+  has_many :microposts, dependent: :destroy 
   has_secure_password  # add password and password_confirmation attributes, require the presence of the password, require that they match, 
   # and add an authenticate method to compare an encrypted password to the password_digest to authenticate users.
   # requires password_digest column in the database
@@ -24,6 +25,10 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
+  def feed
+    # prelim - see following users for full implementation
+    Micropost.where("user_id = ?", id)  # ? tells system to escape id before inclusion in query (avoid SQL injection)  
+  end
   private
 
   	def create_remember_token

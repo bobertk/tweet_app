@@ -1,6 +1,7 @@
 TweetApp::Application.routes.draw do
 resources :users  # with this Rails creates all the actions needed for a RESTful Users resource, along with a large number of named routes for generating user URIs
-resources :sessions, only: [:new, :create, :destroy] # standard RESTful actions for sessions
+resources :sessions, only: [:new, :create, :destroy] # limit to GET POST DELETE (standard RESTful actions for sessions)
+resources :microposts, only: [:create, :destroy]    # limit to POST, DELETE ( but we could add edit/update which is GET/PUT)
 
 root to: 'static_pages#home' # when routed with "root to:" just remember to delete public/index.html.
 

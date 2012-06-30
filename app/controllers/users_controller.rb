@@ -4,8 +4,7 @@ class UsersController < ApplicationController
   before_filter :admin_user,     only: :destroy
 
   def create
-    
-  	@user = User.new(params[:user])
+    @user = User.new(params[:user])
     if @user.save
       sign_in @user
       flash[:success] = "Welcome to the Sample App!"
@@ -13,7 +12,6 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
-    
   end
 
   def destroy
@@ -40,6 +38,7 @@ class UsersController < ApplicationController
 
   def show    
   		@user = User.find(params[:id])   # get user by Id from GET 
+      @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def update
